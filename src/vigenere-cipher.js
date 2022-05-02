@@ -60,7 +60,6 @@ const { NotImplementedError } = require('../extensions/index.js');
     };
   };
 
-  decrypt() {
     decrypt(message, key) {
 
       if (!key || !message) {
@@ -95,8 +94,8 @@ const { NotImplementedError } = require('../extensions/index.js');
           return result.reverse().join('');
       };
     };
-  };
 };
+
 
 module.exports = {
   VigenereCipheringMachine
