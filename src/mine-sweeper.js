@@ -23,10 +23,52 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
-}
+ function minesweeper(matrix) {
+    let array = [];
+
+  for (let numberRow = 0; numberRow < matrix.length; numberRow++){
+    array.push([]);
+
+    for (let numberColumn = 0; numberColumn < matrix[numberRow].length; numberColumn++) {
+    let numbersMines = 0;
+
+      if (matrix[numberRow][numberColumn - 1] === true) {
+        numbersMines++;
+      };   
+    
+      if (matrix[numberRow][numberColumn + 1] === true) {
+        numbersMines++;
+      };
+
+      if (matrix[numberRow - 1]) {
+        if (matrix[numberRow - 1][numberColumn - 1] === true) {
+          numbersMines++;
+        };
+        if (matrix[numberRow - 1][numberColumn] === true) {
+          numbersMines++;
+        };
+        if (matrix[numberRow - 1][numberColumn + 1] === true) {
+          numbersMines++;
+        };
+      };
+      
+      if (matrix[numberRow + 1]) {
+        if (matrix[numberRow + 1][numberColumn - 1] === true) {
+          numbersMines++;
+        };
+        if (matrix[numberRow + 1][numberColumn] === true) {
+          numbersMines++;
+        };
+        if (matrix[numberRow + 1][numberColumn + 1] === true) {
+          numbersMines++;
+        };
+      };
+
+    array[numberRow][numberColumn] = numbersMines;
+    };
+  };
+  return array;
+};
 
 module.exports = {
   minesweeper
