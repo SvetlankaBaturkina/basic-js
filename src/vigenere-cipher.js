@@ -19,16 +19,84 @@ const { NotImplementedError } = require('../extensions/index.js');
  * reverseMachine.decrypt('AEIHQX SX DLLU!', 'alphonse') => '!NWAD TA KCATTA'
  * 
  */
-class VigenereCipheringMachine {
-  encrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
+ class VigenereCipheringMachine {
+  constructor (whatType) {
+    if (whatType === false) {
+       this.direction = false;
+    } else {
+       this.direction = true;
+    }   
+    this.alpfabet = ['A', 'B', 'C', 'D', 'E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+  };
+
+  encrypt(message, key) {
+    if (!key || !message) {
+      throw new Error('Incorrect arguments!');
+    };
+
+    let cnt = 0;
+    let newString = message.toUpperCase().split('').map(element => {
+        if (this.alpfabet.includes(element)) {
+          return key[cnt++ % key.length].toUpperCase();
+        } else {
+          return element;
+        };
+    });
+
+    let result = [];
+    message.toUpperCase().split('').forEach((element, n) => {
+      if (this.alpfabet.includes(element)) {
+        let temp = (this.alpfabet.indexOf(element) + this.alpfabet.indexOf(newString[n])) % 26;
+        result.push(this.alpfabet[temp]);
+      } else {
+        result.push(element);
+      };
+    });
+
+    if (this.direction) {
+        return result.join('');
+    } else {
+      return result.reverse().join('');
+    };
+  };
+
   decrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
-}
+    decrypt(message, key) {
+
+      if (!key || !message) {
+        throw new Error('Incorrect arguments!');
+      };
+  
+      let cnt = 0;
+      let newString = message.toUpperCase().split('').map(element => {
+          if (this.alpfabet.includes(element)) {
+            return key[cnt++ % key.length].toUpperCase();
+          } else {
+            return element;
+          }
+      })
+  
+      let result = [];
+      message.toUpperCase().split('').forEach((element, n) => {
+          if (this.alpfabet.includes(element)) {
+            let temp = this.alpfabet.indexOf(element) - (this.alpfabet.indexOf(newString[n]) % 26);
+            if (temp < 0) {
+                temp += 26;
+            }
+            result.push(this.alpfabet[temp])
+          } else {
+            result.push(element)
+          }
+      });
+
+      if (this.direction) {
+          return result.join('');
+      } else {
+          return result.reverse().join('');
+      };
+    };
+  };
+};
 
 module.exports = {
   VigenereCipheringMachine
