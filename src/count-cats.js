@@ -14,10 +14,20 @@ const { NotImplementedError } = require('../extensions/index.js');
  * ]) => 3`
  *
  */
-function countCats(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
-}
+ function countCats(backyard) {
+  var newBackyard = [];
+    newBackyard = backyard.flat (); // преобразуем матрицу в одномерный массив;   
+  let number = 0; // по умолчанию число котов 0ж
+
+  for (var i = 0; i < newBackyard.length; i++) { // перебираем матрицу; 
+    if (newBackyard[i] == '^^') { // если элемент матрицы содержит "уши";
+        number = number + 1; // увеличиваем число котов;
+    } else {
+        number = number; // оставляем число котов прежним;
+    };
+  }; 
+  return number; // возвращаем число котов; 
+};
 
 module.exports = {
   countCats
