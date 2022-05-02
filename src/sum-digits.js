@@ -12,10 +12,23 @@ const { NotImplementedError } = require('../extensions/index.js');
  * For 91, the result should be 1 (9 + 1 = 10, 1 + 0 = 1)
  *
  */
-function getSumOfDigits(/* n */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
-}
+ function getSumOfDigits(n) {
+  var arrayNum = []; // создаем пустой массив;
+  var sum = 0; // сумма поо умолчанию равна 0;
+ 
+  arrayNum = Array.from(String(n), Number); // преобразовываем число в массив;
+  
+    for (var i = 0; i < arrayNum.length; i++) { // перебираем массив;
+      sum += arrayNum[i]; // увеливаем сумму на значение элемента;
+    };
+
+    if (sum >= 10) { // проверяем двузначное ли число полученная сумма;
+      sum = Math.floor((sum) / 10) + (sum % 10); // находим сумму последнего числа;
+    };
+
+  return sum; // возвращаем сумму;
+};
+
 
 module.exports = {
   getSumOfDigits
